@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="X-UA-Compatible">
+    <title>FinanControl</title>
+
+    <link rel="icon" href="/static/img/favicon.ico" />
+    
+    <link rel="stylesheet" type="text/css" href="/static/style/reset.css">
+    <link rel="stylesheet" type="text/css" href="/static/style/vars.css">
+    <link rel="stylesheet" type="text/css" href="/static/style/body.css">
+    <link rel="stylesheet" type="text/css" href="/static/style/auth.css">
+
+
+</head>
+<body>
+    
+    <div class="logo">
+        <img src="/static/img/logo.png" alt="Logo da FinanControl">
+    </div>
+
+    <div class="container">
+
+
+        <span class="alertaErro" id="erroLogin" th:text="${erro}"></span>
+
+        <h1>Olá!</h1>
+        <h2>Seja bem vindo a sua</h2>
+
+        <div class="login" id="login">
+            <h2>carteira digital.</h2>    
+            
+
+            <h3>Acesse a sua conta:</h3>
+
+            <form th:action="@{/auth/login}" th:object="${usuario}" method="post">
+
+                <div class="input-container">
+                    <label for="emaill">Email:</label>
+                    <input type="email" name="email" id="emaill" required th:field="*{email}">
+                    <label for="senhal">Senha:</label>
+                    <input type="password" name="senha" id="senhal" required th:field="*{senha}">
+                </div>
+                <button type="submit">ENTRAR</button>
+
+            </form>
+            <div class="link">
+                <p>Ainda não tem uma conta? <a href="javascript:mostrarCadastro()">Crie por aqui!</a></p>
+            </div>
+        </div>
+
+        <div class="cadastro hidden" id="register" >
+            <h2>nova carteira digital.</h2>
+            
+          
+            <h3>Crie sua conta e já comece a usar agora mesmo!</h3>
+
+            <form th:action="@{/auth/register}"  th:object="${usuario}" method="post" onsubmit="return validarSenha()">
+
+                <div class="input-container">
+                    <label for="nome">Nome:</label>
+                    <input type="text" name="nome" id="nome" required th:field="*{nome}">
+                    <label for="emailr">Email:</label>
+                    <input type="email" name="email" id="emailr" required th:field="*{email}">
+                    <label for="senhar">Senha:</label>
+                    <input type="password" name="senha" id="senhar" required th:field="*{senha}">
+                    <label for="confirmarSenha">Confirmar Senha:</label>
+                    <input type="password" name="confirmarSenha" id="confirmarSenha" required>
+                    <br>
+                    <span class="alertaErro hidden" id="erroSenha">As senhas não coincidem!</span>
+                    <br>
+                </div>
+                <button type="submit">CADASTRAR</button>
+
+            </form>
+            <div class="link">
+                
+                <p>Já tem uma conta? <a href="javascript:mostrarLogin()">Acesse aqui!</a></p>
+            </div>
+            
+        </div>
+
+    </div>
+    
+</body>
+
+
+<script src="/static/script/auth.js"></script>
+
+</html>

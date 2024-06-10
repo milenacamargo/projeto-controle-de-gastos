@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lançamentos</title>
+    <link rel="icon" href="/static/img/favicon.ico" />
+
+    <link rel="stylesheet" href="/static/style/styles.css">
+
+</head>
+
+<body>
+<h1>Lançamentos</h1>
+
+<form th:action="@{/lancamentos/create}" method="post" style="text-align: center;">
+    <button type="submit">Criar novo lançamento</button>
+    <button><a href="/graficos">Visualizar Gráfico de resumo de gastos</a></button>
+</form>
+
+<div th:each="entry : ${lancamentosPorMes}">
+    <h2 th:text="${entry.key}">Mês</h2>
+    <div class="month-container">
+        <div class="table-container">
+            <h3>Receitas</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="lancamento : ${entry.value['RECEITA']}">
+                    <td th:text="${lancamento.data}"></td>
+                    <td th:text="${lancamento.descricao}"></td>
+                    <td class="receita" th:text="'R$' + ${lancamento.valor}"></td>
+                    <td>
+                        <form th:action="@{/lancamentos/update/{codigo}(codigo=${lancamento.codigo})}" method="get" style="display:inline;">
+                            <button type="submit">Editar</button>
+                        </form>
+                        <form th:action="@{/lancamentos/delete/{codigo}(codigo=${lancamento.codigo})}" method="post" style="display:inline;">
+                            <button type="submit" class="delete-button">Apagar</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table-container">
+            <h3>Despesas</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="lancamento : ${entry.value['DESPESA']}">
+                    <td th:text="${lancamento.data}"></td>
+                    <td th:text="${lancamento.descricao}"></td>
+                    <td class="despesa" th:text="'R$' + ${lancamento.valor}"></td>
+                    <td>
+                        <form th:action="@{/lancamentos/update/{codigo}(codigo=${lancamento.codigo})}" method="get" style="display:inline;">
+                            <button type="submit">Editar</button>
+                        </form>
+                        <form th:action="@{/lancamentos/delete/{codigo}(codigo=${lancamento.codigo})}" method="post" style="display:inline;">
+                            <button type="submit" class="delete-button">Apagar</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

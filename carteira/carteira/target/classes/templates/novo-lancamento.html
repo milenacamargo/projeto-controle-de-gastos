@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Criar Lançamento</title>
+
+    <link rel="icon" href="/static/img/favicon.ico" />
+
+    <link rel="stylesheet" href="/static/style/styles.css">
+
+</head>
+
+<body>
+<div class="container">
+    <h2>Criar Lançamento</h2>
+    <form th:action="@{/lancamentos/create}" th:object="${lancamento}" method="post">
+        <input type="hidden" th:field="*{codigo}" />
+
+        <label for="data">Data:</label>
+        <input type="text" id="data" name="data" th:field="*{data}" />
+
+        <label for="descricao">Descrição:</label>
+        <input type="text" id="descricao" name="descricao" th:field="*{descricao}" />
+
+        <label for="valor">Valor:</label>
+        <input type="text" id="valor" name="valor" th:field="*{valor}" />
+
+        <label for="tipo">Tipo:</label>
+        <select class="form-field"  id="tipo" name="tipo" th:field="*{tipo}">
+            <option value="DESPESA">Despesa</option>
+            <option value="RECEITA">Receita</option>
+        </select>
+
+        <button type="submit">Salvar</button>
+    </form>
+</div>
+</body>
+
+</html>
